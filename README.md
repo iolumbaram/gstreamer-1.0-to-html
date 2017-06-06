@@ -15,4 +15,5 @@ gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert ! videoscale ! video/x-
 
 gst-launch-1.0 v4l2src device=/dev/video0 ! vp8enc ! webmmux streamable=true name=stream ! tcpserversink host=localhost port=8080
 
+gst-launch-1.0 autovideosrc horizontal-speed=1 is-live=true ! videoconvert ! vp8enc cpu-used=5 deadline=1 keyframe-max-dist=10 ! queue leaky=1 ! m. autoaudiosrc ! audioconvert ! vorbisenc ! queue leaky=1 ! m. webmmux name=m streamable=true ! queue leaky=1 ! tcpserversink host=127.0.0.1 port=9001 sync-method=2
 
